@@ -9,7 +9,7 @@ public class credentialDB extends SQLiteOpenHelper{
 
 	public credentialDB(Context context) {
 		super(context, "userDB.db", null, 1);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
