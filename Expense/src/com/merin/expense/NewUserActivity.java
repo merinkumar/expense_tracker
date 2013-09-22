@@ -6,6 +6,8 @@ import android.view.Menu;
 
 public class NewUserActivity extends Activity {
 
+	credentialDB credDB = new credentialDB(this);
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
