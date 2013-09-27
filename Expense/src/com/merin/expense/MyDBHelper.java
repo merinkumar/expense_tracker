@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class credentialDB extends SQLiteOpenHelper{
+public class MyDBHelper extends SQLiteOpenHelper{
 private static String DB_USERID = "userDB.db";
 	
 	
-	public credentialDB(Context context) {
+	public MyDBHelper(Context context) {
 		super(context, DB_USERID, null, 1);
 		
 	}

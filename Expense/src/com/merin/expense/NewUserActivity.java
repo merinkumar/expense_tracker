@@ -6,7 +6,7 @@ import android.view.Menu;
 
 public class NewUserActivity extends Activity {
 
-	credentialDB credDB = new credentialDB(this);
+	MyDBHelper credDB = new MyDBHelper(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
