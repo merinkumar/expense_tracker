@@ -12,22 +12,26 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class MyDBHelper extends SQLiteOpenHelper{
-private static String DB_NAME = "exptracker	.db";
+public class MyDBHelper {
+private static final String DB_NAME = "exptracker.db";
 private static int    DB_VERSION = 1;
 public static String TABLE_USR = "USERCRED";
 public static String TABLE_EXP = "EXPTRACKER";
 public static String COL_USERID = "USERID";
 public static String COL_PASSWORD = "PASSWORD";
 public static String COL_EMAIL = "EMAIL";
-private final String CREATE_USER_TABLE = "create table if not exists "+TABLE_USR+" ("+COL_USERID+" CHAR PRIMARY KEY, "+COL_PASSWORD+" TEXT NOT NULL, "+COL_EMAIL+" CHAR)";
-private final String CREATE_EXP_TABLE =  "create table if not exists "+TABLE_EXP+" (USERID CHAR PRIMARY KEY, PASSWORD TEXT NOT NULL)";	
-private final String TAG = "merin-tag";
+private final static String CREATE_USER_TABLE = "create table if not exists "+TABLE_USR+" ("+COL_USERID+" CHAR PRIMARY KEY, "+COL_PASSWORD+" TEXT NOT NULL, "+COL_EMAIL+" CHAR)";
+private final static String CREATE_EXP_TABLE =  "create table if not exists "+TABLE_EXP+" (USERID CHAR PRIMARY KEY, PASSWORD TEXT NOT NULL)";	
+private final static String TAG = "merin-tag";
 
-	public MyDBHelper(Context context) {
-		super(context, DB_NAME, null, DB_VERSION);
 		
-	}
+	
+
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+	public DatabaseHelper(Context context) {
+			super(context, DB_NAME, null, DB_VERSION);
+			// TODO Auto-generated constructor stub
+		}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -54,6 +58,7 @@ private final String TAG = "merin-tag";
         onCreate(db);
 		
 	}
+    
 /*	public void insert(String tname,ContentValues values){
 		
 	}*/
@@ -65,4 +70,9 @@ private final String TAG = "merin-tag";
 	
 
 
+}
+    
+    //ADD THE OTHER DB HANDLER METHODS BELOW
+    
+    
 }
