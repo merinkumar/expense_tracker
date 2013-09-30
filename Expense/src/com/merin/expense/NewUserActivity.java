@@ -48,6 +48,8 @@ public class NewUserActivity extends Activity {
 		pass1_edittext = (EditText) findViewById(R.id.pass_edittext1);
 		
 		dbHelper = new MyDBHelper(this);
+		final MyDBHelper myDbAdaptor = new MyDBHelper(this);
+		myDbAdaptor.openWrite();
 		//sample1();
 		
 		ok_button.setOnClickListener(new OnClickListener() {
@@ -58,14 +60,22 @@ public class NewUserActivity extends Activity {
 				String b = pass1_edittext.getText().toString();
 				
 				if (a.equals(b)){
-				db = dbHelper.getWritableDatabase();
+				//db = dbHelper.getWritableDatabase();
 				ContentValues cv = new ContentValues();
 				cv.put(MyDBHelper.COL_USERID, user_edittext.getText().toString());
 				cv.put(MyDBHelper.COL_PASSWORD, pass_edittext.getText().toString());
 				cv.put(MyDBHelper.COL_EMAIL, email_edittext.getText().toString());
-				db.insert(MyDBHelper.TABLE_USR, null, cv);
+				
+				long rCode = myDbAdaptor.insertrow(MyDBHelper.TABLE_USR,cv);
+				if(rCode != -1){
+					
+				}else{
+					System.out.println("insert failed");
+				}
+				//db.insert(MyDBHelper.TABLE_USR, null, cv);
 				}else{
 					System.out.println("pass different");
+					dbHelper.close();
 				}
 			}
 		});
@@ -91,13 +101,8 @@ public class NewUserActivity extends Activity {
 	
 
 	
-	public void sample1(){
-		db = dbHelper.getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		cv.put(MyDBHelper.COL_USERID, "merin");
-		cv.put(MyDBHelper.COL_PASSWORD, "test");
-		cv.put(MyDBHelper.COL_EMAIL, "talktomerin@gmail.com");
-		db.insert(MyDBHelper.TABLE_USR, null, cv);
+/*	public void sample1(){
+
 		
 		//Cursor cursor = db.query(MyDBHelper.TABLE_USR,allColumns, MyDBHelper.COL_USERID + " = merin",null,null,null,null);
 		Cursor cursor = db.query(true, MyDBHelper.TABLE_USR, allColumns, null, null, null, null, null, null, null);
@@ -107,6 +112,6 @@ public class NewUserActivity extends Activity {
 			System.out.println(cursor.getString(1));
 			System.out.println(cursor.getString(2));
 		}
-	}
+	}*/
 
 }

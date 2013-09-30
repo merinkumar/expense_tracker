@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PwdActivity extends Activity {
 
@@ -20,9 +21,11 @@ public class PwdActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_activity);
+        final MyDBHelper dbHelper = new MyDBHelper(this);
+        dbHelper.openRead();    
         
         /* Now get reference to all the views and components  */
-    	EditText userEditText = (EditText) findViewById(R.id.user_edittext);
+    	final EditText userEditText = (EditText) findViewById(R.id.user_edittext);
     	EditText passEditText = (EditText) findViewById(R.id.pass_edittext);
     	Button okButton = (Button) findViewById(R.id.ok_button);
     	TextView fPassText = (TextView) findViewById(R.id.fpassText);
@@ -33,8 +36,10 @@ public class PwdActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				boolean rCode = dbHelper.getuser(dbHelper.TABLE_USR, userEditText.getText().toString());
+				if(rCode){
+			    	Toast.makeText(PwdActivity.this, "user pass", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
