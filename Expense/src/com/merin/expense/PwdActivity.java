@@ -26,7 +26,7 @@ public class PwdActivity extends Activity {
         
         /* Now get reference to all the views and components  */
     	final EditText userEditText = (EditText) findViewById(R.id.user_edittext);
-    	EditText passEditText = (EditText) findViewById(R.id.pass_edittext);
+    	final EditText passEditText = (EditText) findViewById(R.id.pass_edittext);
     	Button okButton = (Button) findViewById(R.id.ok_button);
     	TextView fPassText = (TextView) findViewById(R.id.fpassText);
     	TextView nUserText = (TextView) findViewById(R.id.nuserText);
@@ -36,9 +36,13 @@ public class PwdActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				boolean rCode = dbHelper.getuser(dbHelper.TABLE_USR, userEditText.getText().toString());
+				boolean rCode = dbHelper.getuser(dbHelper.TABLE_USR, userEditText.getText().toString(), passEditText.getText().toString());
 				if(rCode){
 			    	Toast.makeText(PwdActivity.this, "user pass", Toast.LENGTH_LONG).show();
+			    	userEditText.setText("");
+			    	passEditText.setText("");
+					Intent myIntent3 = new Intent(PwdActivity.this,MainActivity.class);
+					PwdActivity.this.startActivity(myIntent3);
 				}
 			}
 		});

@@ -1,14 +1,10 @@
 package com.merin.expense;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
@@ -106,31 +102,54 @@ private SQLiteDatabase db;
 		
 }
     
-    public Boolean getuser(String table, String key){
+    public Boolean getuser(String table, String key, String pass){
     	
     	ContentValues cv = new ContentValues();
-    	//SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-    	//queryBuilder.setTables(table);
-    	//queryBuilder.appendWhere(TABLE_USR + " = " + key);
-    	//Cursor c = queryBuilder.query(db, null, COL_USERID, null, null, null, null);
-    	//String sql = "select * from " + table + " where MyDBHelper.COL_USERID = " + key;
-    	String sql = "select * from USERCRED where USERID = bujji";
+    	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+    	queryBuilder.setTables(table);
+    	queryBuilder.appendWhere(MyDBHelper.COL_USERID + " = '" + key + "'");
     	Cursor c = null;
+    	//String sql = "select * from " + table + " where MyDBHelper.COL_USERID = " + key;
+    	//String sql = String.format("select * from USERCRED where USERID = " + " '" + key + "' ");
+    	//Cursor c = null;
 		try {
-			c = db.rawQuery(sql, null);
+			c = queryBuilder.query(db, null, null, null, null, null, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+
+		
+/*		if(c != null){
+			c.moveToFirst();
+			while(!c.isAfterLast()){
+			
+			System.out.println("USERID : " + c.getString(0));
+			System.out.println("PASS : " + c.getString(1));
+			System.out.println("EMAIL : " + c.getString(2));
+			c.moveToNext();
+		}
+			c.close();
+		}*/
+    	//Toast.makeText(mCtx, c.getString(0), Toast.LENGTH_LONG).show();
     	
-    	Toast.makeText(mCtx, c.getString(0), Toast.LENGTH_LONG).show();
-    	
-    	if(key == c.getString(0)){
+		if(c != null){
+		String a = key;
+		c.moveToFirst();
+		String b = c.getString(0);
+		String p = pass;
+		String p1 = c.getString(1);
+    	if(a.equals(b) && p.equals(p1)){
     		return true;
     	}else{
+    		Toast.makeText(mCtx, "user ID/pass incorrect", Toast.LENGTH_LONG).show();
     		return false;
     	}
-    	
+		}else{
+			System.out.println("merin-cursor null");
+    		return false;
+		}
 
     	
 

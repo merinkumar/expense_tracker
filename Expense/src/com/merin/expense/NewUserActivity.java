@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewUserActivity extends Activity {
 
@@ -58,23 +59,28 @@ public class NewUserActivity extends Activity {
 			public void onClick(View v) {
 				String a = pass_edittext.getText().toString();
 				String b = pass1_edittext.getText().toString();
+				String e = email_edittext.getText().toString();
+				String u = user_edittext.getText().toString();
 				
 				if (a.equals(b)){
 				//db = dbHelper.getWritableDatabase();
 				ContentValues cv = new ContentValues();
-				cv.put(MyDBHelper.COL_USERID, user_edittext.getText().toString());
-				cv.put(MyDBHelper.COL_PASSWORD, pass_edittext.getText().toString());
-				cv.put(MyDBHelper.COL_EMAIL, email_edittext.getText().toString());
+				cv.put(MyDBHelper.COL_USERID, u);
+				cv.put(MyDBHelper.COL_PASSWORD, a);
+				cv.put(MyDBHelper.COL_EMAIL, e);
 				
 				long rCode = myDbAdaptor.insertrow(MyDBHelper.TABLE_USR,cv);
 				if(rCode != -1){
-					
+					Toast.makeText(NewUserActivity.this, "user added", Toast.LENGTH_LONG).show();
+					NewUserActivity.this.finish();
 				}else{
 					System.out.println("insert failed");
 				}
 				//db.insert(MyDBHelper.TABLE_USR, null, cv);
 				}else{
+					Toast.makeText(NewUserActivity.this, "incorrect details", Toast.LENGTH_LONG).show();
 					System.out.println("pass different");
+					
 					dbHelper.close();
 				}
 			}
