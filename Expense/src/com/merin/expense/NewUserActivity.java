@@ -1,11 +1,8 @@
 package com.merin.expense;
 
-import android.R.string;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.View;
@@ -24,6 +21,11 @@ public class NewUserActivity extends Activity {
 	private EditText user_edittext;
 	private EditText pass_edittext;
 	private EditText pass1_edittext;
+	private String a;
+	private String b;
+	private String e;
+	private String u;
+	private boolean errorS = false;
 	
 	private String[] allColumns = { MyDBHelper.COL_USERID,MyDBHelper.COL_PASSWORD,MyDBHelper.COL_EMAIL };
 	
@@ -57,12 +59,14 @@ public class NewUserActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				String a = pass_edittext.getText().toString();
-				String b = pass1_edittext.getText().toString();
-				String e = email_edittext.getText().toString();
-				String u = user_edittext.getText().toString();
+				a = pass_edittext.getText().toString();
+				b = pass1_edittext.getText().toString();
+				e = email_edittext.getText().toString();
+				u = user_edittext.getText().toString();
 				
-				if (a.equals(b)){
+				editFileds();
+				
+				if (a.equals(b) && !errorS){
 				//db = dbHelper.getWritableDatabase();
 				ContentValues cv = new ContentValues();
 				cv.put(MyDBHelper.COL_USERID, u);
@@ -81,7 +85,7 @@ public class NewUserActivity extends Activity {
 					Toast.makeText(NewUserActivity.this, "incorrect details", Toast.LENGTH_LONG).show();
 					System.out.println("pass different");
 					
-					dbHelper.close();
+					
 				}
 			}
 		});
@@ -90,7 +94,10 @@ public class NewUserActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				pass_edittext.setText("");
+				pass1_edittext.setText("");
+				email_edittext.setText("");
+				user_edittext.setText("");
 				
 			}
 		});
@@ -105,19 +112,35 @@ public class NewUserActivity extends Activity {
 		return true;
 	}
 	
+	public void editFileds(){
+		
+		if (e.equals(null) || (e == "") || (e.isEmpty())){
+			Toast.makeText(NewUserActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+			errorS = true;
+		}
+		
+		if (u.equals(null) || (u == "") || (u.isEmpty())){
+			Toast.makeText(NewUserActivity.this, "Enter User ID", Toast.LENGTH_LONG).show();
+			errorS = true;
+			
+		}
+		
+		if (a.equals(null) || (a == "") || (a.isEmpty())){
+			Toast.makeText(NewUserActivity.this, "Password cannt be NULL", Toast.LENGTH_LONG).show();
+			errorS = true;
+		}
+		
+		
+		
+		if (b.equals(null) || (b == "") || (b.isEmpty())){
+			Toast.makeText(NewUserActivity.this, "Password cannt be NULL", Toast.LENGTH_LONG).show();
+			errorS = true;
+		}
 
-	
-/*	public void sample1(){
 
 		
-		//Cursor cursor = db.query(MyDBHelper.TABLE_USR,allColumns, MyDBHelper.COL_USERID + " = merin",null,null,null,null);
-		Cursor cursor = db.query(true, MyDBHelper.TABLE_USR, allColumns, null, null, null, null, null, null, null);
-		if(cursor != null){
-			cursor.moveToFirst();
-			System.out.println(cursor.getString(0));
-			System.out.println(cursor.getString(1));
-			System.out.println(cursor.getString(2));
-		}
-	}*/
+	}
+	
+
 
 }

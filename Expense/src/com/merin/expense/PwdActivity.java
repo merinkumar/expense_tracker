@@ -3,6 +3,7 @@ package com.merin.expense;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,10 +15,13 @@ import android.widget.Toast;
 public class PwdActivity extends Activity {
 
 
+    protected static final int COLOR_RED = 0xffff0000;
+	
+	
 
-	
-	
-    @Override
+
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_activity);
@@ -30,6 +34,7 @@ public class PwdActivity extends Activity {
     	Button okButton = (Button) findViewById(R.id.ok_button);
     	TextView fPassText = (TextView) findViewById(R.id.fpassText);
     	TextView nUserText = (TextView) findViewById(R.id.nuserText);
+    	final TextView errorMtext = (TextView) findViewById(R.id.errorMsgText);
     	
     	
         okButton.setOnClickListener(new OnClickListener() {
@@ -43,6 +48,10 @@ public class PwdActivity extends Activity {
 			    	passEditText.setText("");
 					Intent myIntent3 = new Intent(PwdActivity.this,MainActivity.class);
 					PwdActivity.this.startActivity(myIntent3);
+					finish();
+				}else{
+					errorMtext.setText("User ID / Pass incorrect");
+					errorMtext.setTextColor(COLOR_RED);
 				}
 			}
 		});

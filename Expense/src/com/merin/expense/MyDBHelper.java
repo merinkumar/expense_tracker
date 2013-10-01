@@ -92,10 +92,12 @@ private SQLiteDatabase db;
 		return this;
     	
     }
-    public void close(){
-    	sqlHelper.close();
+/*    public void close(){
+    	//sqlHelper.close();
     	db.close();
-    }
+    }*/
+    
+
     
     public long insertrow(String table, ContentValues cvs){
     	return db.insert(table, null, cvs);
@@ -134,10 +136,10 @@ private SQLiteDatabase db;
 		}*/
     	//Toast.makeText(mCtx, c.getString(0), Toast.LENGTH_LONG).show();
     	
-		if(c != null){
+		if(!(!(c.moveToFirst()) || c.getCount() ==0)){
 		String a = key;
 		c.moveToFirst();
-		String b = c.getString(0);
+		String b = c.getString(0); 
 		String p = pass;
 		String p1 = c.getString(1);
     	if(a.equals(b) && p.equals(p1)){
@@ -147,7 +149,7 @@ private SQLiteDatabase db;
     		return false;
     	}
 		}else{
-			System.out.println("merin-cursor null");
+			System.out.println("merin-cursor error");
     		return false;
 		}
 

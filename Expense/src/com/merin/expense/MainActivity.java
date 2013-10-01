@@ -16,8 +16,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
 	}
 
+	
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
